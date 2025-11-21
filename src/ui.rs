@@ -14,8 +14,11 @@ use crate::{
 
 pub struct UI {
     pub show_help: bool,
+    #[allow(dead_code)]
     pub show_info: bool,
+    #[allow(dead_code)]
     pub current_octave_display: u8,
+    #[allow(dead_code)]
     pub volume_display: f32,
     pub recording: bool,
     pub metronome: bool,
@@ -73,7 +76,7 @@ impl UI {
         area: Rect,
         piano: &Piano,
         midi_player: &MidiPlayer,
-        audio_engine: &AudioEngine,
+        _audio_engine: &AudioEngine,
     ) {
         let header_chunks = Layout::default()
             .direction(Direction::Horizontal)
@@ -415,6 +418,7 @@ impl UI {
         self.status_message = Some(message);
     }
     
+    #[allow(dead_code)]
     pub fn clear_status_message(&mut self) {
         self.status_message = None;
     }

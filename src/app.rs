@@ -299,7 +299,7 @@ impl App {
         // More particles for louder notes (higher velocity)
         let particle_count = 3 + (velocity / 32) as usize; // 3-6 particles based on velocity
         
-        for i in 0..particle_count {
+        for _ in 0..particle_count {
             let offset_x = x + (rand::random::<u16>() % 8).saturating_sub(4); // Spread around key
             let offset_y = y.saturating_sub(rand::random::<u16>() % 3); // Slightly above key
             self.visual_effects.add_key_press(midi_note, offset_x, offset_y);

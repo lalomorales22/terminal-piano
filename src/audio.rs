@@ -109,6 +109,7 @@ impl AudioEngine {
         }
     }
     
+    #[allow(dead_code)]
     pub fn stop_all_notes(&self) {
         let mut sinks = self.sinks.lock().unwrap();
         for (_, sink) in sinks.drain() {
@@ -125,6 +126,7 @@ impl AudioEngine {
         }
     }
     
+    #[allow(dead_code)]
     pub fn get_volume(&self) -> f32 {
         self.volume
     }
@@ -256,7 +258,7 @@ impl<'de> serde::Deserialize<'de> for Recording {
     where
         D: serde::Deserializer<'de>,
     {
-        use serde::de::{self, Deserializer, MapAccess, Visitor};
+        use serde::de::{self, MapAccess, Visitor};
         use std::fmt;
 
         struct RecordingVisitor;
@@ -325,7 +327,7 @@ impl<'de> serde::Deserialize<'de> for RecordingEvent {
     where
         D: serde::Deserializer<'de>,
     {
-        use serde::de::{self, Deserializer, MapAccess, Visitor};
+        use serde::de::{self, MapAccess, Visitor};
         use std::fmt;
 
         struct RecordingEventVisitor;
@@ -410,7 +412,7 @@ impl<'de> serde::Deserialize<'de> for RecordingEventType {
     where
         D: serde::Deserializer<'de>,
     {
-        use serde::de::{self, Deserializer, MapAccess, Visitor};
+        use serde::de::{self, MapAccess, Visitor};
         use std::fmt;
 
         struct RecordingEventTypeVisitor;

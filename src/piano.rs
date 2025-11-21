@@ -217,6 +217,7 @@ impl Piano {
         self.key_mappings.get(&key).copied()
     }
     
+    #[allow(dead_code)]
     pub fn get_octave_range(&self) -> (u8, u8) {
         let start = self.current_octave * 12;
         (start, start + 12)
@@ -232,6 +233,7 @@ impl Piano {
         }
     }
     
+    #[allow(dead_code)]
     pub fn get_key_layout(&self) -> Vec<(char, Note, bool)> {
         let mut layout = Vec::new();
         
@@ -250,7 +252,9 @@ impl Piano {
 pub struct PianoLayout {
     pub white_keys: Vec<WhiteKey>,
     pub black_keys: Vec<BlackKey>,
+    #[allow(dead_code)]
     pub width: u16,
+    #[allow(dead_code)]
     pub height: u16,
 }
 

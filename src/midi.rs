@@ -8,6 +8,7 @@ use crate::audio::{Recording, RecordingEventType};
 
 #[derive(Debug, Clone)]
 pub struct MidiEvent {
+    #[allow(dead_code)]
     pub delta_time: u32,
     pub absolute_time: u64,
     pub event: MidiMessage,
@@ -61,16 +62,15 @@ impl MidiPlayer {
             }
         }
         
-        let mut absolute_time = 0u64;
         let mut all_events = Vec::new();
         
         for track in smf.tracks {
-            absolute_time = 0;
+            let mut absolute_time = 0;
             for event in track {
                 absolute_time += event.delta.as_int() as u64;
                 
                 match event.kind {
-                    midly::TrackEventKind::Midi { channel, message } => {
+                    midly::TrackEventKind::Midi { channel: _, message } => {
                         all_events.push(MidiEvent {
                             delta_time: event.delta.as_int(),
                             absolute_time,
@@ -129,6 +129,7 @@ impl MidiPlayer {
         // Keep start_time for resuming
     }
     
+    #[allow(dead_code)]
     pub fn stop(&mut self) {
         self.is_playing = false;
         self.start_time = None;
@@ -224,6 +225,7 @@ impl MidiPlayer {
         pending_events
     }
     
+    #[allow(dead_code)]
     pub fn seek_to_position(&mut self, position: f32) {
         let position = position.clamp(0.0, 1.0);
         let target_tick = (self.total_ticks as f32 * position) as u64;
@@ -284,10 +286,12 @@ impl MidiPlayer {
         Duration::from_micros(microseconds as u64)
     }
     
+    #[allow(dead_code)]
     pub fn set_loop(&mut self, enabled: bool) {
         self.loop_enabled = enabled;
     }
     
+    #[allow(dead_code)]
     pub fn is_loop_enabled(&self) -> bool {
         self.loop_enabled
     }
@@ -356,14 +360,17 @@ impl MidiRecorder {
     }
 }
 
+#[allow(dead_code)]
 pub fn midi_note_to_frequency(midi_note: u8) -> f32 {
     440.0 * 2.0_f32.powf((midi_note as f32 - 69.0) / 12.0)
 }
 
+#[allow(dead_code)]
 pub fn frequency_to_midi_note(frequency: f32) -> u8 {
     (69.0 + 12.0 * (frequency / 440.0).log2()).round() as u8
 }
 
+#[allow(dead_code)]
 pub fn note_name_to_midi_note(note_name: &str, octave: u8) -> Result<u8> {
     let base_note = match note_name.to_uppercase().as_str() {
         "C" => 0,
@@ -384,6 +391,7 @@ pub fn note_name_to_midi_note(note_name: &str, octave: u8) -> Result<u8> {
     Ok((octave * 12) + base_note)
 }
 
+#[allow(dead_code)]
 pub fn midi_note_to_note_name(midi_note: u8) -> (String, u8) {
     let note_names = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
     let octave = midi_note / 12;

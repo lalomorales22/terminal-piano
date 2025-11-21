@@ -6,6 +6,7 @@ use rand;
 pub struct KeyPressEffect {
     pub start_time: Instant,
     pub duration: Duration,
+    #[allow(dead_code)]
     pub color: Color,
     pub intensity: f32,
 }
@@ -140,16 +141,16 @@ impl VisualEffects {
         base_color
     }
     
+    #[allow(dead_code)]
     pub fn get_particles_at(&self, x: u16, y: u16, tolerance: u16) -> Vec<&ParticleEffect> {
-        self.particles
-            .iter()
-            .filter(|p| {
-                let px = p.x as u16;
-                let py = p.y as u16;
-                px >= x.saturating_sub(tolerance) && px <= x + tolerance &&
-                py >= y.saturating_sub(tolerance) && py <= y + tolerance
-            })
-            .collect()
+        let mut result = Vec::new();
+        for particle in &self.particles {
+            if (particle.x as i32 - x as i32).abs() <= tolerance as i32 && 
+               (particle.y as i32 - y as i32).abs() <= tolerance as i32 {
+                result.push(particle);
+            }
+        }
+        result
     }
     
     fn note_to_color(midi_note: u8) -> Color {
@@ -172,6 +173,7 @@ impl VisualEffects {
         }
     }
     
+    #[allow(dead_code)]
     fn hsv_to_rgb(h: f32, s: f32, v: f32) -> Color {
         let h = h % 360.0;
         let c = v * s;
@@ -220,10 +222,12 @@ impl VisualEffects {
     }
 }
 
+#[allow(dead_code)]
 pub struct SimpleEffects {
     pub enabled: bool,
 }
 
+#[allow(dead_code)]
 impl SimpleEffects {
     pub fn new() -> Self {
         Self {
